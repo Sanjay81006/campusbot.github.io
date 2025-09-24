@@ -1,19 +1,24 @@
 {
   "faq": [
     {
-      "question": "What is GITAM?",
-      "answer": "GITAM (Gandhi Institute of Technology and Management) is a private university in India.",
-      "keywords": ["gitam", "college", "university"]
+      "keywords": ["placement", "placements", "job", "career"],
+      "answer": "GITAM has a strong placement cell that connects students with top recruiters across industries. The placement office conducts training, mock interviews, and career guidance sessions."
     },
     {
-      "question": "Where is GITAM located?",
-      "answer": "GITAM has campuses in Visakhapatnam, Hyderabad, and Bengaluru.",
-      "keywords": ["location", "where", "campus"]
+      "keywords": ["admission", "admissions", "apply", "application"],
+      "answer": "Admissions to GITAM are based on entrance tests such as GAT, along with merit in qualifying exams. Students can apply online through the official GITAM admissions portal."
     },
     {
-      "question": "What courses does GITAM offer?",
-      "answer": "GITAM offers programs in engineering, management, pharmacy, science, and humanities.",
-      "keywords": ["courses", "programs", "degrees"]
+      "keywords": ["hostel", "hostels", "accommodation", "rooms"],
+      "answer": "GITAM provides separate hostel facilities for boys and girls, with options for single and shared rooms, Wi-Fi, and dining facilities."
+    },
+    {
+      "keywords": ["library", "books", "study", "reading"],
+      "answer": "The GITAM central library has thousands of books, e-resources, journals, and digital study materials. It is open for students and staff throughout the week."
+    },
+    {
+      "keywords": ["scholarship", "scholarships", "fee concession"],
+      "answer": "GITAM offers scholarships based on merit, sports, and financial need. Students are encouraged to check the scholarships page on the official website for eligibility and details."
     }
   ]
 }
