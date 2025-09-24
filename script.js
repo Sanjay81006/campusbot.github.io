@@ -1,25 +1,31 @@
-document.getElementById("send-btn").addEventListener("click", sendMessage);
-
 async function sendMessage() {
-  const input = document.getElementById("user-input");
-  const chatBox = document.getElementById("chat-box");
-  const userMessage = input.value.trim();
-  if (!userMessage) return;
+  const input = document.getElementById("userInput");
+  const message = input.value.trim();
+  if (!message) return;
 
-  // Show user's message
-  chatBox.innerHTML += `<p><b>You:</b> ${userMessage}</p>`;
+  const messagesDiv = document.getElementById("messages");
+  messagesDiv.innerHTML += `<p><span class="msg-user">You:</span> ${message}</p>`;
   input.value = "";
 
-  // Send to backend
-  const response = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userMessage }),
-  });
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userMessage: message }),
+    });
 
-  const data = await response.json();
+    const data = await response.json();
+    console.log("DEBUG frontend got:", data);
 
-  // Show bot's reply
-  chatBox.innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
-  chatBox.scrollTop = chatBox.scrollHeight;
+    if (data.reply) {
+      messagesDiv.innerHTML += `<p><span class="msg-bot">Bot:</span> ${data.reply}</p>`;
+    } else {
+      messagesDiv.innerHTML += `<p><span class="msg-bot">Bot:</span> (no reply from server)</p>`;
+    }
+  } catch (err) {
+    console.error("Frontend error:", err);
+    messagesDiv.innerHTML += `<p><span class="msg-bot">Bot:</span> Error contacting server.</p>`;
+  }
 }
