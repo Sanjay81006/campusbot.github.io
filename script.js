@@ -9,6 +9,35 @@ fetch('gitam_site.json')
   })
   .catch(error => console.error("Error loading GITAM data:", error));
 
+function searchGitamData(query) {
+  query = query.toLowerCase();
+  let answer = "";
+
+  if (gitamData.homepage && gitamData.homepage.description.toLowerCase().includes(query)) {
+    answer = gitamData.homepage.description;
+  }
+
+  if (!answer && gitamData.campuses) {
+    for (const [campus, info] of Object.entries(gitamData.campuses)) {
+      if (query.includes(campus.toLowerCase())) {
+        answer = `${campus} Campus: ${info.address}, Phone: ${info.phone}`;
+        break;
+      }
+    }
+  }
+
+  if (!answer && gitamData.faq) {
+    for (const faq of gitamData.faq) {
+      if (query.includes(faq.question.toLowerCase())) {
+        answer = faq.answer;
+        break;
+      }
+    }
+  }
+
+  return answer || null;
+}
+
 // Send text message to bot
 async function sendMessage() {
   const inputField = document.getElementById("userInput");
@@ -23,20 +52,38 @@ async function sendMessage() {
   inputField.value = "";
 
   try {
-    const res = await fetch("/api/chat", {
+   try {
+  try {
+  // First, search in local gitam_site.json
+  let botReply = searchGitamData(userMessage);
+
+  // If not found, fallback to OpenAI
+  if (!botReply) {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userMessage, language })
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${OPENAI_API_KEY}` // put your key safely
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: userMessage }]
+      })
     });
 
     const data = await res.json();
+    botReply = data.choices[0].message.content;
+  }
 
-    if (data.reply) {
-      chatbox.innerHTML += `<p class="bot-message"><b>Bot:</b> ${data.reply}</p>`;
-      speakText(data.reply, language); // Speak out reply
-    } else {
-      chatbox.innerHTML += `<p class="bot-message"><b>Bot:</b> Error: No reply.</p>`;
-    }
+  // Show + speak bot reply
+  chatbox.innerHTML += `<p class="bot-message"><b>Bot:</b> ${botReply}</p>`;
+  speakText(botReply, language);
+
+} catch (err) {
+  console.error("Error:", err);
+  chatbox.innerHTML += `<p class="bot-message"><b>Bot:</b> Error: No response.</p>`;
+}
+
 
     chatbox.scrollTop = chatbox.scrollHeight;
   } catch (err) {
@@ -62,4 +109,5 @@ function speakText(text, language) {
   utterance.lang = language; // will try to use the selected language
   window.speechSynthesis.speak(utterance);
 }
+
 
