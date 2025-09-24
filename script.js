@@ -15,16 +15,17 @@ btn.addEventListener("click", () => {
 
 // 🎤 When speech is recognized
 recognition.onresult = async (event) => {
-  const text = event.results[0][0].transcript;
-  addMessage("You", text);
+    const text = event.results[0][0].transcript;   // what user said
+    addMessage("You", text);
 
-  // Send message to backend (Vercel -> OpenAI)
-  const reply = await sendMessage(text);
-  addMessage("Bot", reply);
+    // Send message to backend (Vercel API)
+    const reply = await sendMessage(text);
+    addMessage("Bot", reply);
 
-  // 🔊 Speak reply
-  speak(reply);
+    // Speak reply
+    speak(reply);
 };
+
 
 // 📨 Send message to backend API
 async function sendMessage(userMessage) {
@@ -51,3 +52,4 @@ function speak(text) {
   utter.lang = langSelect.value;
   speechSynthesis.speak(utter);
 }
+
