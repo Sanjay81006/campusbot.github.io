@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -19,16 +19,15 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
+    console.log("DEBUG OpenAI response:", data);
 
-    // ✅ Fix: check that data.choices exists before using
     if (data.choices && data.choices.length > 0) {
       return res.status(200).json({ reply: data.choices[0].message.content });
     } else {
-      console.error("OpenAI error:", data);
-      return res.status(500).json({ reply: "Sorry, I couldn't generate a reply." });
+      return res.status(500).json({ reply: "Error: No response from OpenAI." });
     }
   } catch (error) {
     console.error("Server error:", error);
-    return res.status(500).json({ reply: "Something went wrong on the server." });
+    return res.status(500).json({ reply: "Server error happened." });
   }
-}
+};
