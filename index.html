@@ -4,50 +4,67 @@
   <meta charset="UTF-8">
   <title>Campus Chatbot with Voice Assist</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; }
-    iframe { width: 100%; height: 90vh; border: none; }
-    #controls { text-align: center; padding: 10px; }
-    button { font-size: 18px; padding: 10px 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f9;
+    }
+    #chatbox {
+      width: 80%;
+      max-width: 600px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: white;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+    }
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #eee;
+    }
+    #messages div {
+      margin: 5px 0;
+    }
+    #controls {
+      display: flex;
+      gap: 5px;
+    }
+    input, select, button {
+      padding: 8px;
+      font-size: 14px;
+    }
+    input {
+      flex: 1;
+    }
   </style>
 </head>
 <body>
-  <iframe id="bot-frame" src="https://landbot.online/v3/H-3140010-730MCGU9XNXUUCS9/index.html"></iframe>
-  <div id="controls">
-    <button id="voice-btn">🎤 Speak</button>
-    <select id="lang">
-      <option value="en-US">English (US)</option>
-      <option value="hi-IN">Hindi</option>
-      <option value="te-IN">Telugu</option>
-      <option value="ta-IN">Tamil</option>
-      <option value="kn-IN">Kannada</option>
-    </select>
+  <div id="chatbox">
+    <div id="messages"></div>
+    <div id="controls">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+      <button id="voice-btn">🎤</button>
+      <select id="lang">
+        <option value="en-US">English (US)</option>
+        <option value="hi-IN">Hindi</option>
+        <option value="te-IN">Telugu</option>
+        <option value="ta-IN">Tamil</option>
+        <option value="kn-IN">Kannada</option>
+      </select>
+    </div>
   </div>
 
-  <script>
-    const btn = document.getElementById("voice-btn");
-    const langSelect = document.getElementById("lang");
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.interimResults = false;
-
-    btn.addEventListener("click", () => {
-      recognition.lang = langSelect.value;
-      recognition.start();
-    });
-
-    recognition.onresult = (event) => {
-      const text = event.results[0][0].transcript;
-      alert("You said: " + text + "\nPlease type it manually in the chatbot.");
-      // Directly inserting into iframe is blocked by Landbot plan,
-      // so user has to copy/paste or type the text.
-    };
-
-    // Example: make bot replies speak (this works if iframe allows reading DOM)
-    function speak(text) {
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = langSelect.value;
-      speechSynthesis.speak(utter);
-    }
-  </script>
+  <!-- Link to external JavaScript -->
+  <script src="scripts/script.js"></script>
 </body>
 </html>
--
