@@ -1,3 +1,14 @@
+let gitamData = {};
+
+// Load the JSON file
+fetch('gitam_site.json')
+  .then(response => response.json())
+  .then(data => {
+    gitamData = data;
+    console.log("✅ GITAM data loaded", gitamData);
+  })
+  .catch(error => console.error("Error loading GITAM data:", error));
+
 // Send text message to bot
 async function sendMessage() {
   const inputField = document.getElementById("userInput");
@@ -51,3 +62,4 @@ function speakText(text, language) {
   utterance.lang = language; // will try to use the selected language
   window.speechSynthesis.speak(utterance);
 }
+
