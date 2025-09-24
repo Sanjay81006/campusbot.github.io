@@ -1,1 +1,10 @@
+{
+  "faqs": [
+    { "q": "admission", "a": "GITAM Bengaluru offers admissions via GAT (GITAM Admission Test). Visit https://www.gitam.edu for details." },
+    { "q": "courses", "a": "GITAM Bengaluru offers Engineering, Management, Science, and Humanities programs." },
+    { "q": "placements", "a": "GITAM has 200+ recruiters with top companies like Infosys, Wipro, TCS, and Deloitte." },
+    { "q": "contact", "a": "You can contact GITAM Bengaluru at +91-80-28098000 or email bengaluru@gitam.edu." },
+    { "q": "location", "a": "GITAM Bengaluru is located at Nagadenahalli, Doddaballapur Taluk, Bengaluru Rural, Karnataka 562163." }
+  ]
+}
 
