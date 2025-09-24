@@ -1,0 +1,44 @@
+{
+  "faq": [
+    {
+      "keywords": ["placements", "jobs", "recruitment"],
+      "answer": {
+        "english": "Our university has a strong placement cell with top companies visiting every year.",
+        "hindi": "हमारे विश्वविद्यालय में एक मज़बूत प्लेसमेंट सेल है जहाँ हर साल शीर्ष कंपनियाँ आती हैं।",
+        "telugu": "మా విశ్వవిద్యాలయంలో ప్రతి సంవత్సరం అగ్రశ్రేణి కంపెనీలు వచ్చే బలమైన ప్లేస్‌మెంట్ సెల్ ఉంది."
+      }
+    },
+    {
+      "keywords": ["admission", "apply", "application"],
+      "answer": {
+        "english": "You can apply for admission through our official website.",
+        "hindi": "आप हमारे आधिकारिक वेबसाइट के माध्यम से प्रवेश के लिए आवेदन कर सकते हैं।",
+        "telugu": "మీరు మా అధికారిక వెబ్‌సైట్ ద్వారా ప్రవేశానికి దరఖాస్తు చేసుకోవచ్చు."
+      }
+    },
+    {
+      "keywords": ["hostel", "accommodation"],
+      "answer": {
+        "english": "We provide separate hostel facilities for boys and girls.",
+        "hindi": "हम लड़कों और लड़कियों के लिए अलग-अलग छात्रावास सुविधाएँ प्रदान करते हैं।",
+        "telugu": "మేము అబ్బాయిలు మరియు అమ్మాయిల కోసం వసతి గృహ సౌకర్యాలను అందిస్తున్నాము."
+      }
+    },
+    {
+      "keywords": ["library", "books", "reading"],
+      "answer": {
+        "english": "The library is open from 8 AM to 10 PM with thousands of books and journals.",
+        "hindi": "पुस्तकालय सुबह 8 बजे से रात 10 बजे तक खुला रहता है जिसमें हजारों किताबें और पत्रिकाएँ हैं।",
+        "telugu": "లైబ్రరీ ఉదయం 8 గంటల నుండి రాత్రి 10 గంటల వరకు తెరిచి ఉంటుంది, వేలాది పుస్తకాలు మరియు జర్నల్స్‌తో."
+      }
+    },
+    {
+      "keywords": ["scholarship", "fee waiver", "financial aid"],
+      "answer": {
+        "english": "Scholarships are available for meritorious and needy students.",
+        "hindi": "मेधावी और ज़रूरतमंद छात्रों के लिए छात्रवृत्तियाँ उपलब्ध हैं।",
+        "telugu": "ప్రతిభావంతులైన మరియు ఆర్థికంగా బలహీనమైన విద్యార్థులకు స్కాలర్‌షిప్‌లు అందుబాటులో ఉన్నాయి."
+      }
+    }
+  ]
+}
