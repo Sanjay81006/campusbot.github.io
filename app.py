@@ -4,7 +4,7 @@ import json
 app = Flask(__name__)
 
 # Load GITAM data from JSON file
-with open("gitam-site.json", "r", encoding="utf-8") as f:
+with open("gitam_site.json", "r", encoding="utf-8") as f:
     gitam_data = json.load(f)
 
 @app.route("/api/chat", methods=["POST"])
