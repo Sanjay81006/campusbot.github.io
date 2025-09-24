@@ -1,9 +1,41 @@
-// ⚠️ Replace with your own OpenAI API key
+// ⚠️ Replace with your real OpenAI API key
 const API_KEY = "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";
 
+// Select elements
 const messagesDiv = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 
+// ====================
+// 🎤 Voice Input Setup
+// ====================
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition;
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.lang = "en-US";
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    userInput.value = transcript; // show text in input
+    sendMessage(); // auto-send
+  };
+
+  recognition.onerror = (err) => {
+    console.error("Speech recognition error:", err);
+  };
+} else {
+  alert("⚠️ Your browser does not support Speech Recognition.");
+}
+
+function startListening() {
+  if (recognition) recognition.start();
+}
+
+// ====================
+// 💬 Chat Functions
+// ====================
 async function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
@@ -42,5 +74,11 @@ function appendMessage(sender, text, cssClass) {
   msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
   messagesDiv.appendChild(msgDiv);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
 
+  // 🔊 Make bot messages speak aloud
+  if (cssClass === "bot") {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    speechSynthesis.speak(utterance);
+  }
+}
