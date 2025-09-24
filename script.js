@@ -1,5 +1,5 @@
 // ⚠️ Replace with your own OpenAI API key
-const API_KEY = "sk-xxxxxxxxxxxxxxxx";
+const API_KEY = "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";
 
 const messagesDiv = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
@@ -43,3 +43,4 @@ function appendMessage(sender, text, cssClass) {
   messagesDiv.appendChild(msgDiv);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
+
