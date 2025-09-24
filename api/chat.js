@@ -1,33 +1,34 @@
-module.exports = async function handler(req, res) {
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // stored in Vercel environment variables
+});
+
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { userMessage } = req.body;
+    const { message, language } = req.body;
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: userMessage }],
-      }),
+    // Ask GPT to reply in the requested language
+    const completion = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content: `You are CampusBot, a helpful AI assistant for college students. Always reply in ${language}.`,
+        },
+        { role: "user", content: message },
+      ],
     });
 
-    const data = await response.json();
-    console.log("DEBUG OpenAI response:", data);
+    const reply = completion.choices[0].message.content;
 
-    if (data.choices && data.choices.length > 0) {
-      return res.status(200).json({ reply: data.choices[0].message.content });
-    } else {
-      return res.status(500).json({ reply: "Error: No response from OpenAI." });
-    }
+    res.status(200).json({ reply });
   } catch (error) {
-    console.error("Server error:", error);
-    return res.status(500).json({ reply: "Server error happened." });
+    console.error("OpenAI error:", error);
+    res.status(500).json({ error: "OpenAI request failed" });
   }
-};
+}
