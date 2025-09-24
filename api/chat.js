@@ -19,9 +19,16 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    return res.status(200).json({ reply: data.choices[0].message.content });
+
+    // ✅ Fix: check that data.choices exists before using
+    if (data.choices && data.choices.length > 0) {
+      return res.status(200).json({ reply: data.choices[0].message.content });
+    } else {
+      console.error("OpenAI error:", data);
+      return res.status(500).json({ reply: "Sorry, I couldn't generate a reply." });
+    }
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Something went wrong" });
+    console.error("Server error:", error);
+    return res.status(500).json({ reply: "Something went wrong on the server." });
   }
 }
