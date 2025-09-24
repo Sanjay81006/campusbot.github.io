@@ -1,31 +1,53 @@
+// Send text message to bot
 async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const message = input.value.trim();
-  if (!message) return;
+  const inputField = document.getElementById("userInput");
+  const chatbox = document.getElementById("chatbox");
+  const language = document.getElementById("language").value;
+  const userMessage = inputField.value.trim();
 
-  const messagesDiv = document.getElementById("messages");
-  messagesDiv.innerHTML += `<p><span class="msg-user">You:</span> ${message}</p>`;
-  input.value = "";
+  if (!userMessage) return;
+
+  // Show user message
+  chatbox.innerHTML += `<p class="user-message"><b>You:</b> ${userMessage}</p>`;
+  inputField.value = "";
 
   try {
-    const response = await fetch("/api/chat", {
+    const res = await fetch("/api/chat", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userMessage: message }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userMessage, language })
     });
 
-    const data = await response.json();
-    console.log("DEBUG frontend got:", data);
+    const data = await res.json();
 
     if (data.reply) {
-      messagesDiv.innerHTML += `<p><span class="msg-bot">Bot:</span> ${data.reply}</p>`;
+      chatbox.innerHTML += `<p class="bot-message"><b>Bot:</b> ${data.reply}</p>`;
+      speakText(data.reply, language); // Speak out reply
     } else {
-      messagesDiv.innerHTML += `<p><span class="msg-bot">Bot:</span> (no reply from server)</p>`;
+      chatbox.innerHTML += `<p class="bot-message"><b>Bot:</b> Error: No reply.</p>`;
     }
+
+    chatbox.scrollTop = chatbox.scrollHeight;
   } catch (err) {
-    console.error("Frontend error:", err);
-    messagesDiv.innerHTML += `<p><span class="msg-bot">Bot:</span> Error contacting server.</p>`;
+    chatbox.innerHTML += `<p class="bot-message"><b>Bot:</b> Error: No response from server.</p>`;
   }
+}
+
+// Voice input using Web Speech API
+function startVoice() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = document.getElementById("language").value;
+  recognition.start();
+
+  recognition.onresult = function (event) {
+    document.getElementById("userInput").value = event.results[0][0].transcript;
+    sendMessage();
+  };
+}
+
+// Text-to-speech
+function speakText(text, language) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = language; // will try to use the selected language
+  window.speechSynthesis.speak(utterance);
 }
