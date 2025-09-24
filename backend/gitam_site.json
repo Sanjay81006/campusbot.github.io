@@ -1,0 +1,19 @@
+{
+  "faq": [
+    {
+      "question": "What is GITAM?",
+      "answer": "GITAM (Gandhi Institute of Technology and Management) is a private university in India.",
+      "keywords": ["gitam", "college", "university"]
+    },
+    {
+      "question": "Where is GITAM located?",
+      "answer": "GITAM has campuses in Visakhapatnam, Hyderabad, and Bengaluru.",
+      "keywords": ["location", "where", "campus"]
+    },
+    {
+      "question": "What courses does GITAM offer?",
+      "answer": "GITAM offers programs in engineering, management, pharmacy, science, and humanities.",
+      "keywords": ["courses", "programs", "degrees"]
+    }
+  ]
+}
