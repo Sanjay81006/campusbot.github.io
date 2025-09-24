@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
@@ -19,11 +19,9 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't understand.";
-
-    res.status(200).json({ reply });
+    return res.status(200).json({ reply: data.choices[0].message.content });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 }
