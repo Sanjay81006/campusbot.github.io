@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Campus Chatbot with Voice Assist</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; }
+    iframe { width: 100%; height: 90vh; border: none; }
+    #controls { text-align: center; padding: 10px; }
+    button { font-size: 18px; padding: 10px 20px; }
+  </style>
+</head>
+<body>
+  <iframe id="bot-frame" src="https://landbot.online/v3/H-3140010-730MCGU9XNXUUCS9/index.html"></iframe>
+  <div id="controls">
+    <button id="voice-btn">🎤 Speak</button>
+    <select id="lang">
+      <option value="en-US">English (US)</option>
+      <option value="hi-IN">Hindi</option>
+      <option value="te-IN">Telugu</option>
+      <option value="ta-IN">Tamil</option>
+      <option value="kn-IN">Kannada</option>
+    </select>
+  </div>
+
+  <script>
+    const btn = document.getElementById("voice-btn");
+    const langSelect = document.getElementById("lang");
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.interimResults = false;
+
+    btn.addEventListener("click", () => {
+      recognition.lang = langSelect.value;
+      recognition.start();
+    });
+
+    recognition.onresult = (event) => {
+      const text = event.results[0][0].transcript;
+      alert("You said: " + text + "\nPlease type it manually in the chatbot.");
+      // Directly inserting into iframe is blocked by Landbot plan,
+      // so user has to copy/paste or type the text.
+    };
+
+    // Example: make bot replies speak (this works if iframe allows reading DOM)
+    function speak(text) {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = langSelect.value;
+      speechSynthesis.speak(utter);
+    }
+  </script>
+</body>
+</html>
+-
