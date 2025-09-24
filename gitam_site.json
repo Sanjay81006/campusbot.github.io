@@ -1,1 +1,110 @@
+{
+  "university": {
+    "name": "Gandhi Institute of Technology and Management (GITAM)",
+    "established": 1980,
+    "campuses": ["Visakhapatnam", "Hyderabad", "Bengaluru"],
+    "mission": "Multidisciplinary applied education and translational research", 
+    "accreditation": "NAAC A++", 
+    "type": "Deemed to be University",
+    "website": "https://www.gitam.edu/"
+  },
+  "contact": {
+    "main_address": "Gandhi Nagar, Rushikonda, Visakhapatnam – 530045, Andhra Pradesh, India", 
+    "phone_main": "8884984000 (Admissions Enquiries)", 
+    "email_main": "contact@gitam.edu", 
+    "evaluation_contact": "See evaluation contact page on GITAM site" 
+  },
+  "campus_bengaluru": {
+    "address": "NH 207, Nagadenahalli, Doddaballapur Taluk, Bengaluru Rural, Karnataka", 
+    "phone": "8028098000 (approx.)", 
+    "email": "registrar@gitam.edu (approx.)", 
+    "established": 2012,
+    "schools": [
+      "GITAM School of Technology", 
+      "GITAM School of Business", 
+      "GITAM School of Science", 
+      "GITAM School of Humanities & Social Sciences"
+    ],
+    "facilities": [
+      "Smart classrooms", 
+      "Laboratories", 
+      "Auditoriums", 
+      "Seminar halls", 
+      "Hostels (boys & girls)", 
+      "Playfields & sports", 
+      "Cafeteria", 
+      "Medical support", 
+      "Library"
+    ]
+  },
+  "programmes": {
+    "engineering": [
+      "B.Tech Computer Science & Engineering", 
+      "B.Tech Electronics & Communication", 
+      "B.Tech Electrical & Electronics", 
+      "B.Tech Mechanical Engineering", 
+      "B.Tech Civil Engineering", 
+      "M.Tech Data Science", 
+      "M.Tech Computer Science"
+    ],
+    "science": [
+      "BSc (various)", 
+      "MSc Data Science", 
+      "PhD Science"
+    ],
+    "business": [
+      "BBA", 
+      "MBA (Finance, Marketing, Business Analytics)", 
+      "Commerce & related programmes"
+    ],
+    "distance_learning": [
+      "BA", 
+      "BCom (offered via CDOE / CDL)"
+    ]
+  },
+  "research": {
+    "phd_admissions": {
+      "2025": {
+        "contact_phone": "0891-2866411", 
+        "contact_email": "phdsupport@gitam.edu", 
+        "details": "PhD programmes & application brochure available from GITAM research admissions"
+      }
+    }
+  },
+  "career_guidance": {
+    "centre_name": "GITAM Career Guidance Centre (GCGC)", 
+    "purpose": "Offers career planning and competence development support to students" 
+  },
+  "placements": {
+    "top_companies": ["TCS", "Infosys", "Wipro", "Capgemini", "Amazon", "Cognizant", "IBM"],
+    "average_package": "₹4.5 LPA (example)", 
+    "highest_package": "₹32 LPA (example)" 
+  },
+  "faqs": [
+    {
+      "question": "What programmes are offered at GITAM Bengaluru?",
+      "answer": "GITAM Bengaluru offers UG, PG, and doctoral programmes across Engineering, Science, Business, and Humanities via its multiple schools."
+    },
+    {
+      "question": "How do I contact GITAM main campus?",
+      "answer": "The main address is Gandhi Nagar, Rushikonda, Visakhapatnam – 530045. For admissions enquiries: 8884984000."
+    },
+    {
+      "question": "When was the Bengaluru campus established?",
+      "answer": "The GITAM Bengaluru campus was established in 2012."
+    },
+    {
+      "question": "What facilities are available on the Bengaluru campus?",
+      "answer": "Facilities include labs, smart classrooms, hostels, sports fields, library, medical support, auditoriums, and canteen."
+    },
+    {
+      "question": "How to contact for PhD admissions?",
+      "answer": "For PhD admissions 2025, contact phone: 0891-2866411, email: phdsupport@gitam.edu."
+    },
+    {
+      "question": "What is the role of GITAM's Career Guidance Centre?",
+      "answer": "The centre assists students with career planning, skill development, and connects them to opportunities and training."
+    }
+  ]
+}
 
