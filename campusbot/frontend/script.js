@@ -1,57 +1,40 @@
-let gitamData = {};
+const chatbox = document.getElementById("chatbox");
+const inputField = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const languageSel = document.getElementById("language");
 
-// Load local GITAM data
-fetch("gitam_site.json")
-  .then(res => res.json())
-  .then(data => {
-    gitamData = data;
-    console.log("✅ GITAM data loaded");
-  })
-  .catch(err => console.error("Error loading JSON", err));
+function addMessage(text, cls) {
+  const p = document.createElement("div");
+  p.className = cls;
+  p.innerHTML = text;
+  chatbox.appendChild(p);
+  chatbox.scrollTop = chatbox.scrollHeight;
+}
 
-// Send text message
 async function sendMessage() {
-  const inputField = document.getElementById("userInput");
-  const chatbox = document.getElementById("chatbox");
-  const language = document.getElementById("language").value;
-  const userMessage = inputField.value.trim();
-
-  if (!userMessage) return;
-
-  chatbox.innerHTML += `<p class="user-message"><b>You:</b> ${userMessage}</p>`;
+  const msg = inputField.value.trim();
+  const language = languageSel.value || "english";
+  if (!msg) return;
+  addMessage(`<b>You:</b> ${msg}`, "user-message");
   inputField.value = "";
 
-  // Search inside gitamData
-  let reply = "Sorry, I don't have info on that.";
-  for (const item of gitamData.faqs) {
-    if (userMessage.toLowerCase().includes(item.q.toLowerCase())) {
-      reply = item.a;
-      break;
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: msg, language })
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      addMessage(`<b>Bot:</b> Error: ${res.status} ${err}`, "bot-message");
+      return;
     }
+    const data = await res.json();
+    addMessage(`<b>Bot:</b> ${data.reply}`, "bot-message");
+  } catch (e) {
+    addMessage(`<b>Bot:</b> Network error: ${e.message}`, "bot-message");
   }
-
-  chatbox.innerHTML += `<p class="bot-message"><b>Bot:</b> ${reply}</p>`;
-  chatbox.scrollTop = chatbox.scrollHeight;
-
-  speakText(reply, language);
 }
 
-// Voice input
-function startVoice() {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = document.getElementById("language").value;
-  recognition.start();
-
-  recognition.onresult = function (event) {
-    document.getElementById("userInput").value = event.results[0][0].transcript;
-    sendMessage();
-  };
-}
-
-// Bot speaks
-function speakText(text, language) {
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = language;
-  window.speechSynthesis.speak(utterance);
-}
-
+sendBtn.addEventListener("click", sendMessage);
+inputField.addEventListener("keydown", (e) => { if (e.key === "Enter") sendMessage(); });
