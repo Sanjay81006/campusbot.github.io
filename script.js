@@ -1,67 +1,51 @@
-// 🚨 Replace with your OpenAI API key (keep it secret in real projects)
-const API_KEY = "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";
-
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const msg = input.value;
-  if (!msg) return;
-
-  addMessage("You: " + msg);
-  input.value = "";
-
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: msg }]
-      })
-    });
-
-    const data = await response.json();
-    if (data.choices && data.choices.length > 0) {
-      const botReply = data.choices[0].message.content;
-      addMessage("Bot: " + botReply);
-      speak(botReply);
-    } else {
-      addMessage("Bot: [Error: no response]");
-    }
-  } catch (error) {
-    addMessage("Bot: [Error connecting to API]");
-    console.error(error);
-  }
-}
-
-function addMessage(text) {
-  const messages = document.getElementById("messages");
-  const div = document.createElement("div");
-  div.textContent = text;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-// 🎤 Voice input
+// Get UI elements
 const btn = document.getElementById("voice-btn");
 const langSelect = document.getElementById("lang");
+const chatBox = document.getElementById("chat-box"); // Add a div with id="chat-box" in your HTML
+
+// Setup Speech Recognition
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 recognition.interimResults = false;
 
+// 🎤 Handle click on Speak button
 btn.addEventListener("click", () => {
   recognition.lang = langSelect.value;
   recognition.start();
 });
 
-recognition.onresult = (event) => {
+// 🎤 When speech is recognized
+recognition.onresult = async (event) => {
   const text = event.results[0][0].transcript;
-  document.getElementById("userInput").value = text;
-  sendMessage();
+  addMessage("You", text);
+
+  // Send message to backend (Vercel -> OpenAI)
+  const reply = await sendMessage(text);
+  addMessage("Bot", reply);
+
+  // 🔊 Speak reply
+  speak(reply);
 };
 
-// 🔊 Voice output
+// 📨 Send message to backend API
+async function sendMessage(userMessage) {
+  const response = await fetch("https://campusbot-github-io.vercel.app/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userMessage })
+  });
+
+  const data = await response.json();
+  return data.reply;
+}
+
+// 💬 Add messages to chat box
+function addMessage(sender, text) {
+  const msg = document.createElement("p");
+  msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  chatBox.appendChild(msg);
+}
+
+// 🔊 Text-to-speech for bot reply
 function speak(text) {
   const utter = new SpeechSynthesisUtterance(text);
   utter.lang = langSelect.value;
