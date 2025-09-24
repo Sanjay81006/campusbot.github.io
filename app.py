@@ -14,11 +14,11 @@ def chat():
 
     response = "Sorry, I didn’t understand. Can you rephrase?"
 
-    # Simple keyword search in the data
+    # Search keywords
     for item in data["faq"]:
         for keyword in item["keywords"]:
-            if keyword.lower() in user_input:   # ✅ lowercase check
-                response = item["answer"]
+            if keyword.lower() in user_input:
+                response = item["answer"].get(language, item["answer"]["english"])
                 break
 
     return jsonify({"response": response})
