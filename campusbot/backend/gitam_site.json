@@ -2,23 +2,23 @@
   "faq": [
     {
       "keywords": ["placements", "jobs", "recruitment"],
-      "answer": "Our university has a strong placement cell with top companies visiting every year."
+      "answer": "Our university has a strong placement cell; top companies visit each year."
     },
     {
       "keywords": ["admission", "apply", "application"],
-      "answer": "You can apply for admission through our official website."
+      "answer": "You can apply for admission through our official admission portal on the website."
     },
     {
       "keywords": ["hostel", "accommodation"],
-      "answer": "We provide separate hostel facilities for boys and girls."
+      "answer": "We provide separate hostel facilities for boys and girls with proper security."
     },
     {
       "keywords": ["library", "books", "reading"],
-      "answer": "The library is open from 8 AM to 10 PM with thousands of books and journals."
+      "answer": "The library is open from 8 AM to 10 PM, with thousands of books and journals."
     },
     {
       "keywords": ["scholarship", "fee waiver", "financial aid"],
-      "answer": "Scholarships are available for meritorious and needy students."
+      "answer": "Scholarships and financial aid are available for meritorious and needy students."
     }
   ]
 }
